@@ -22,6 +22,22 @@ const collections = {
     spellingz: 'spellingz',
 };
 
+app.get('/', (req, res) => {
+    const library = {};
+    Object.keys(collections).forEach((key) => {
+        firebaseHelper.firestore
+            .backup(db, collections[key])
+            .then(data => {
+                library[key] = data;
+                return data;
+            })
+            .then((data) => (
+                Object.keys(library).length === Object.keys(collections).length &&
+                res.status(200).send(library)
+            ));
+    });
+});
+
 app.get('/spellingz', (req, res) => {
     firebaseHelper.firestore
         .backup(db, collections.spellingz)
