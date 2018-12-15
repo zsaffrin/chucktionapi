@@ -6,10 +6,8 @@ API for The Chucktionary
 
 This is a read-only API. Only GET requests are supported.
 
-ENDPOINT
 https://chucktionapi.firebaseapp.com/api/v1/
 
-ROUTES
 route | returns
 ------|--------
 / | Object of all collections and their documents
