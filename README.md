@@ -1,6 +1,6 @@
 # chucktionapi
 
-API for The Chucktionary
+REST API for The Chucktionary
 
 ## Available Calls
 
