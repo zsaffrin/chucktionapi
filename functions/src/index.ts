@@ -20,6 +20,12 @@ export const webApi = functions.https.onRequest(main);
 
 const collections = {
     spellingz: 'spellingz',
+    favorites: 'favorites',
+    hates: 'hates',
+    doesntget: 'doesntget',
+    culinary: 'culinary',
+    wtf: 'wtf',
+    ohchuck: 'ohchuck',
 };
 
 app.get('/', (req, res) => {
@@ -38,8 +44,16 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/spellingz', (req, res) => {
-    firebaseHelper.firestore
-        .backup(db, collections.spellingz)
-        .then(data => res.status(200).send(data));
+Object.keys(collections).forEach((key) => {
+    app.get(`/${key}`, (req, res) => {
+        firebaseHelper.firestore
+            .backup(db, collections[key])
+            .then(data => res.status(200).send(data));
+    });
+
+    app.get(`/${key}/:id`, (req, res) => {
+        firebaseHelper.firestore
+            .getDocument(db, collections[key], req.params.id)
+            .then(data => res.status(200).send(data));
+    });
 });
